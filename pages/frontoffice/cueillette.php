@@ -20,7 +20,7 @@
                     <h3 class="card-title">Cueillette</h3>
                     <p class="card-description">formulaire d'insertion</p>
 
-                    <form class="forms-sample" method="get" action="backoffice/traitcueillette.php">
+                    <form class="forms-sample" method="get" action="frontoffice/traitcueillette.php">
                       <div class="form-group">
                         <label for="exampleInputUsername1"> Date cueillette</label>
                         <input name="datecueillette" type="date" class="form-control" id="exampleInputUsername1" name=" surface">

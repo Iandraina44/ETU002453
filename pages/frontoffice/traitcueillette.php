@@ -11,7 +11,7 @@ $poids=$_GET['poids'];
 insertcueillette($datecueillette,$idcueilleur,$idparcelle,$poids);
 
 
-header('location:../template.php?page=backoffice/cueillette')
+header('location:../template.php?page=frontoffice/cueillette')
 
 
 

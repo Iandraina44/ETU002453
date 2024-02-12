@@ -10,7 +10,7 @@
     <script src="../src/assets3/js/bootstrap.min.js"></script>
     <style type="text/css">
         body{
-            background-image: url('../src/img/bg1.jpg');
+            background-image: linear-gradient(rgba(47, 23, 15, 0.65), rgba(47, 23, 15, 0.65)), url('../src/img/bg1.jpg');
             background-attachment: fixed;
             background-size: cover;
             background-repeat: no-repeat;
@@ -30,7 +30,8 @@
         }
         .form button{
             margin-top: 2%;
-            background-image: linear-gradient(to right,#2193b0,#6dd5ed);
+            color: black;
+            background-image: linear-gradient(to right,moccasin,beige);
             border-style: none;
             transition: transform 0.4s ease;
             width: 100%;
@@ -39,15 +40,25 @@
 
         .form button:hover {
             transform: scale(1.03); /* Grow by 1.1 times on hover */
+            color: black;
         }
-
+        label {
+            color: moccasin;
+        }
+        
+        h2 {
+            color: moccasin;
+        }
+        input {
+            color: moccasin;
+        }
         
     </style>
 </head>
 <body>
 <div class="container">
     <div class="form">
-        <center><h2 class><span class="glyphicon glyphicon-leaf"></span> LOGIN</h2></center>
+        <center><h2 class><span class="glyphicon glyphicon-leaf"></span> LEAF YOUR LIFE</h2></center>
         <form  method="post"  action="traitlogin.php" >
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
@@ -57,7 +68,7 @@
                 <label for="exampleInputPassword1">Password</label>
                 <input name="mdp" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" value="admin">
             </div>
-           <center><button type="submit" class="btn btn-primary">Submit</button></center> 
+           <center><button type="submit" class="btn btn-primary">Log on</button></center> 
         </form>
     </div>
 </div>

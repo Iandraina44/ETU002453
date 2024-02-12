@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
      <style type="text/css">
 body {
-  background-image: linear-gradient(rgba(47, 23, 15, 0.65), rgba(47, 23, 15, 0.65)), url(" assets/images/bg1.jpg");
+  background-image: linear-gradient(rgba(47, 23, 15, 0.65), rgba(47, 23, 15, 0.65)), url("../src/assets/images/bg1.jpg");
   background-attachment: fixed;
   background-position: center;
   background-size: cover;

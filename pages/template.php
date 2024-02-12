@@ -102,7 +102,7 @@ include ("../inc/fonction.php");
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="">
+              <a class="nav-link" href="template.php?page=frontoffice/depense">
                 <span class="menu-title">Depense</span>
                 <i class="mdi mdi-currency-eur menu-icon"></i>
               </a>
@@ -110,7 +110,7 @@ include ("../inc/fonction.php");
 
             </li>
               <li class="nav-item">
-              <a class="nav-link" href="template.php?page=backoffice/cueillette">
+              <a class="nav-link" href="template.php?page=frontoffice/cueillette">
                 <span class="menu-title">Cueillette</span>
                 <i class="mdi mdi-leaf menu-icon"></i>
               </a>
