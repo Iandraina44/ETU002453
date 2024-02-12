@@ -172,6 +172,20 @@ function getAllCueilleur() {
     return $data;
 }
 
+function getAllCueillette() {
+    $db = dbconnect(); 
+    $query = "SELECT * FROM cueillette";
+    $result = mysqli_query($db, $query);
+    $data = array(); 
+    if ($result && mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
+        }
+        mysqli_free_result($result); // Libérer la mémoire après avoir récupéré les données
+    }
+    return $data;
+}
+
 function getAllCategorieDepense() {
     $db = dbconnect(); 
     $query = "SELECT * FROM categoriedepense";

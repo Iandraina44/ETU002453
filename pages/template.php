@@ -62,22 +62,29 @@ include ("../inc/fonction.php");
                 <i class="mdi mdi-animation menu-icon"></i>
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="template.php?page=backoffice/salaire">
+                <span class="menu-title">configuration salariale</span>
+                <i class="mdi mdi-bookmark-check menu-icon"></i>
+              </a>
+            </li>
 
+            <li class="nav-item">
+              <a class="nav-link" href="template.php?page=backoffice/categoriedepense">
+                <span class="menu-title">categorie de depense</span>
+                <i class="mdi mdi-table-large menu-icon"></i>
+              </a>
+            </li>
 
+            
+           
             </li>
               <li class="nav-item">
               <a class="nav-link" href="template.html">
                 <span class="menu-title">Cueilleur</span>
                 <i class="mdi mdi-face menu-icon"></i>
               </a>
-            </li>
-              <li class="nav-item">
-              <a class="nav-link" href="template.html">
-                <span class="menu-title">Cueillette</span>
-                <i class="mdi mdi-leaf menu-icon"></i>
-              </a>
-            </li>
-
+            
 
          
             <li class="nav-item">
@@ -98,19 +105,19 @@ include ("../inc/fonction.php");
                 <i class="mdi mdi-currency-eur menu-icon"></i>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="">
-                <span class="menu-title">categorie de depense</span>
-                <i class="mdi mdi-table-large menu-icon"></i>
+
+            </li>
+              <li class="nav-item">
+              <a class="nav-link" href="template.php?page=backoffice/cueillette">
+                <span class="menu-title">Cueillette</span>
+                <i class="mdi mdi-leaf menu-icon"></i>
               </a>
             </li>
 
-            <li class="nav-item">
-              <a class="nav-link" href="template.php?page=backoffice/salaire">
-                <span class="menu-title">configuration salariale</span>
-                <i class="mdi mdi-bookmark-check menu-icon"></i>
-              </a>
-            </li>
+
+
+
+            
           </ul>
         </nav>
     

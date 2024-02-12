@@ -25,6 +25,8 @@ create table parcelle(
     foreign key (idthe) references the (idthe)
 );
 
+insert into parcelle values(NULL,2000,1);
+
 create table cueilleur (
     idcueilleur int auto_increment primary key,
     nom varchar (256),
