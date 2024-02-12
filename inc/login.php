@@ -46,16 +46,16 @@
 </head>
 <body>
 <div class="container">
-    <div class="form">
+    <div class="form" method="post"  action="traitlogin.php" >
         <center><h2 class><span class="glyphicon glyphicon-leaf"></span> LOGIN</h2></center>
         <form role="form">
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" value="admin">
+                <input name="mail" type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" value="admin">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" value="admin">
+                <input name="mdp" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" value="admin">
             </div>
            <center><button type="submit" class="btn btn-primary">Submit</button></center> 
         </form>
