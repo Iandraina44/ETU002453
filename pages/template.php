@@ -19,6 +19,15 @@
     #bar div h2{
       color: #A86938;
     }
+    .content-wrapper{
+     background-image: linear-gradient(rgba(47, 23, 15, 0.65), rgba(47, 23, 15, 0.65)), url("../src/assets/images/bg1.jpg");
+    background-attachment: fixed;
+    background-position: center;
+   background-size: cover;
+    }
+   td{
+    color: brown;
+    }
 </style>
   </head>
   <body>
@@ -45,7 +54,7 @@
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
               <li class="nav-item">
-              <a class="nav-link" href="">
+              <a class="nav-link" href="template.php?page=backoffice/variete">
                 <span class="menu-title">Variete de thé</span>
                 <i class="mdi mdi-animation menu-icon"></i>
               </a>
