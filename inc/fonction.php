@@ -125,7 +125,7 @@ function getStatutPersonne($id){
     if ($nb==0) {
         return -1;
     }
-    while ($valiny=mysqli_fetch_assoc($resultat)) {
+    while ($valiny=mysqli_fetch_assoc($resultat1)) {
         $retour=$valiny['statut'];
         return $retour;
     }   

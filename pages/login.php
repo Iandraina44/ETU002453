@@ -46,12 +46,12 @@
 </head>
 <body>
 <div class="container">
-    <div class="form" method="post"  action="traitlogin.php" >
+    <div class="form">
         <center><h2 class><span class="glyphicon glyphicon-leaf"></span> LOGIN</h2></center>
-        <form role="form">
+        <form  method="post"  action="traitlogin.php" >
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
-                <input name="mail" type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" value="admin">
+                <input name="mail" type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" value="admin@gmail.com">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
