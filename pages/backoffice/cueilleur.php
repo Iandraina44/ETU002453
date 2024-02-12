@@ -32,9 +32,9 @@
 
                        <div class="form-group">
                       <label for="exampleFormControlSelect1">Genre</label>
-                      <select name="sexe" class="form-control form-control-sm" id="exampleFormControlSelect1">
-                        <option value="F">femme</option>
-                        <option value="H">homme</option>
+                      <select name="genre" class="form-control form-control-sm" id="exampleFormControlSelect1">
+                        <option value="F" >femme</option>
+                        <option value="H" >homme</option>
                       </select>
                     </div>
                       

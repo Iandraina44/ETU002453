@@ -88,11 +88,13 @@ include ("../inc/fonction.php");
 
          
             <li class="nav-item">
-              <a class="nav-link" href="">
+              <a class="nav-link" href="template.php?page=backoffice/parcelle">
                 <span class="menu-title">Parcelle</span>
                 <i class="mdi mdi-drag menu-icon"></i>
               </a>
             </li>
+
+
             <li class="nav-item">
               <a class="nav-link" href="">
                 <span class="menu-title">Resultat</span>

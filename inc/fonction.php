@@ -172,7 +172,6 @@ function getAllCueilleur() {
     return $data;
 }
 
-<<<<<<< Updated upstream
 function getAllCueillette() {
     $db = dbconnect(); 
     $query = "SELECT * FROM cueillette";
@@ -186,8 +185,7 @@ function getAllCueillette() {
     }
     return $data;
 }
-=======
->>>>>>> Stashed changes
+
 
 function getAllCategorieDepense() {
     $db = dbconnect(); 
