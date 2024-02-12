@@ -118,10 +118,9 @@ function insertresultat($poidtotalcueillette, $poidrestantparcelle, $coutrevient
 
 function getStatutPersonne($id){
     $requette1="SELECT * FROM user WHERE iduser='%s' ";
-    $requette1=sprintf($id);
+    $requette1=sprintf($requette1,$id);
     $resultat1=mysqli_query(dbconnect(),$requette1);
     $nb=mysqli_num_rows($resultat1);	
-    mysqli_free_result($resultat1);
     if ($nb==0) {
         return -1;
     }
@@ -140,7 +139,6 @@ function getAllThe() {
             $data[] = $row;
         }
     }
-    mysqli_close($db);
     return $data;
 }
 
@@ -154,7 +152,6 @@ function getAllParcelle() {
             $data[] = $row;
         }
     }
-    mysqli_close($db);
     return $data;
 }
 function getAllCueilleur() {
@@ -167,7 +164,6 @@ function getAllCueilleur() {
             $data[] = $row;
         }
     }
-    mysqli_close($db);
     return $data;
 }
 function getAllCategorieDepense() {
@@ -180,7 +176,6 @@ function getAllCategorieDepense() {
             $data[] = $row;
         }
     }
-    mysqli_close($db);
     return $data;
 }
 function getAllSalaire() {
@@ -193,7 +188,6 @@ function getAllSalaire() {
             $data[] = $row;
         }
     }
-    mysqli_close($db);
     return $data;
 }
 
@@ -209,7 +203,6 @@ function poids_total_par_parcelle() {
             $data[] = $row;
         }
     }
-    mysqli_close($db);
     return $data;
 }
 
@@ -224,7 +217,6 @@ function poids_total_parcelle() {
         $row = mysqli_fetch_assoc($result);
         $total_weight = $row['poids_total'];
     }
-    // mysqli_close($db);
     return $total_weight;
 }
 
@@ -248,7 +240,6 @@ function poids_restant_par_parcelle() {
             $data[] = $row;
         }
     }
-    // mysqli_close($db);
     return $data;
 }
 

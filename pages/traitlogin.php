@@ -9,9 +9,11 @@ if ($log<0) {
     header('location:login.php?error='.$log);
 }
 else{
+    $statut =getStatutPersonne($log);
     session_start();
     $_SESSION['iduser']=$log;
-    header('location:accueil.php');
+    $_SESSION['statut']=$statut;
+    header('location:template.php?page=accueil');
 }
 
 ?>
