@@ -128,6 +128,7 @@ function getStatutPersonne($id){
         $retour=$valiny['statut'];
         return $retour;
     }   
+    
 }
 function getAllThe() {
     $db = dbconnect(); 
@@ -138,6 +139,7 @@ function getAllThe() {
         while ($row = mysqli_fetch_assoc($result)) {
             $data[] = $row;
         }
+        mysqli_free_result($result); // Libérer la mémoire après avoir récupéré les données
     }
     return $data;
 }
@@ -151,9 +153,11 @@ function getAllParcelle() {
         while ($row = mysqli_fetch_assoc($result)) {
             $data[] = $row;
         }
+        mysqli_free_result($result); // Libérer la mémoire après avoir récupéré les données
     }
     return $data;
 }
+
 function getAllCueilleur() {
     $db = dbconnect(); 
     $query = "SELECT * FROM cueilleur";
@@ -163,9 +167,11 @@ function getAllCueilleur() {
         while ($row = mysqli_fetch_assoc($result)) {
             $data[] = $row;
         }
+        mysqli_free_result($result); // Libérer la mémoire après avoir récupéré les données
     }
     return $data;
 }
+
 function getAllCategorieDepense() {
     $db = dbconnect(); 
     $query = "SELECT * FROM categoriedepense";
@@ -175,9 +181,11 @@ function getAllCategorieDepense() {
         while ($row = mysqli_fetch_assoc($result)) {
             $data[] = $row;
         }
+        mysqli_free_result($result); // Libérer la mémoire après avoir récupéré les données
     }
     return $data;
 }
+
 function getAllSalaire() {
     $db = dbconnect(); 
     $query = "SELECT * FROM salaire";
@@ -187,6 +195,7 @@ function getAllSalaire() {
         while ($row = mysqli_fetch_assoc($result)) {
             $data[] = $row;
         }
+        mysqli_free_result($result); // Libérer la mémoire après avoir récupéré les données
     }
     return $data;
 }
@@ -241,6 +250,30 @@ function poids_restant_par_parcelle() {
         }
     }
     return $data;
+}
+
+function poids_restant_parcelle() {
+    $db = dbconnect();
+    
+    $query = "SELECT 
+                p.surface - COALESCE(SUM(c.poids), 0) AS poids_restant
+              FROM 
+                parcelle p
+              LEFT JOIN 
+                cueillette c ON p.idparcelle = c.idparcelle";
+    
+    $result = mysqli_query($db, $query);
+    $data = array();
+    if ($result && mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row['poids_restant'];
+        }
+    }
+    return $data;
+}
+
+function cout_revient_kg(){
+    
 }
 
 
