@@ -106,7 +106,7 @@ include ("../inc/fonction.php");
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="">
+              <a class="nav-link" href="template.php?page=backoffice/salaire">
                 <span class="menu-title">configuration salariale</span>
                 <i class="mdi mdi-bookmark-check menu-icon"></i>
               </a>

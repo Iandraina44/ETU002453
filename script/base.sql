@@ -71,3 +71,4 @@ create table resultat(
 insert into user values(null,'admin','admin',sha1('admin'),'admin@gmail.com',0);
 insert into user values(null,'normal','normal',sha1('normal'),'normal@gmail.com',1);
 
+insert into cueilleur values(NULL,'doda','H','2000-12-14');
