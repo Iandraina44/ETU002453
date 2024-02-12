@@ -60,7 +60,8 @@ create table depense(
     iddep int auto_increment primary key,
     idcategoriedepense int,
     foreign key (idcategoriedepense) references categoriedepense (idcategoriedepense),
-    montant double not null
+    montant double not null,
+    datedepense date 
 );
 
 create table resultat(
