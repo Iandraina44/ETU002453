@@ -17,7 +17,7 @@
       background-color: white;
     }
     #bar div h2{
-      color: #dba75b;
+      color: #A86938;
     }
 </style>
   </head>
