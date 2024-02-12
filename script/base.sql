@@ -7,7 +7,7 @@ create table user(
     nom varchar(256) not null,
     prenom varchar(256) not null,
     mdp varchar(256) not null,
-    email varchar(256),
+    email varchar(256) not null unique,
     statut int check (statut between 0 and 1)
 );
 

@@ -197,5 +197,62 @@ function getAllSalaire() {
     return $data;
 }
 
+function poids_total_par_parcelle() {
+    $db = dbconnect(); 
+    $query = "SELECT idparcelle, SUM(poids) AS poids_total
+    FROM cueillette
+    GROUP BY idparcelle";
+    $result = mysqli_query($db, $query);
+    $data = array(); 
+    if ($result && mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
+        }
+    }
+    mysqli_close($db);
+    return $data;
+}
+
+
+function poids_total_parcelle() {
+    $db = dbconnect(); 
+    $query = "SELECT SUM(poids) AS poids_total
+    FROM cueillette";
+    $result = mysqli_query($db, $query);
+    $total_weight = 0;
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $total_weight = $row['poids_total'];
+    }
+    // mysqli_close($db);
+    return $total_weight;
+}
+
+function poids_restant_par_parcelle() {
+    $db = dbconnect();
+    
+    $query = "SELECT 
+                p.idparcelle, 
+                p.surface - COALESCE(SUM(c.poids), 0) AS poids_restant
+              FROM 
+                parcelle p
+              LEFT JOIN 
+                cueillette c ON p.idparcelle = c.idparcelle
+              GROUP BY 
+                p.idparcelle, p.surface";
+    
+    $result = mysqli_query($db, $query);
+    $data = array();
+    if ($result && mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
+        }
+    }
+    // mysqli_close($db);
+    return $data;
+}
+
+
+
 
 ?>
