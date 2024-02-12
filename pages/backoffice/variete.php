@@ -1,4 +1,9 @@
 
+     <?php
+     $listthe=getAllThe();
+
+     ?>
+     
      <div class="content-wrapper">
       <div class="page-header">
 
@@ -55,12 +60,14 @@
                         </tr>
                       </thead>
                       <tbody>
+                        <?php for ($i=0; $i < count($listthe) ; $i++) {  ?>
                         <tr>
-                          <td>Jacob</td>
-                          <td>Photoshop</td>
-                          <td class="text-danger"> 28.76% <i class="mdi mdi-arrow-down"></i></td>
-                          <td>Pending</td>
+                          <td><?php echo $listthe[$i]['idthe'] ?></td>
+                          <td><?php echo $listthe[$i]['variete'] ?></td>
+                          <td class="text-danger"> <?php echo $listthe[$i]['occupation'] ?> m</i></td>
+                          <td><?php echo $listthe[$i]['occupation'] ?> % </td>
                         </tr>
+                        <?php } ?>
                         
                       </tbody>
                     </table>
