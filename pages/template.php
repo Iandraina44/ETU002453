@@ -80,7 +80,7 @@ include ("../inc/fonction.php");
            
             </li>
               <li class="nav-item">
-              <a class="nav-link" href="template.html">
+              <a class="nav-link" href="template.php?page=backoffice/cueilleur">
                 <span class="menu-title">Cueilleur</span>
                 <i class="mdi mdi-face menu-icon"></i>
               </a>
