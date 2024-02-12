@@ -5,7 +5,6 @@ $mail=$_POST['mail'];
 $mdp=$_POST['mdp'];
 
 $log=Login($mail,$mdp);
-echo $log;
 if ($log<0) {
     header('location:login.php?error='.$log);
 }
