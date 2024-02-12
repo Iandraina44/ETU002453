@@ -94,9 +94,9 @@ function insertcueillette($datecueillette, $idcueilleur, $idparcelle, $poids) {
     }
 }
 
-function insertdepense($idcategoriedepense, $montant) {
-    $requette = "INSERT INTO depense VALUES (NULL, %d, %.2f)";
-    $requette = sprintf($requette, $idcategoriedepense, $montant);
+function insertdepense($idcategoriedepense, $montant,$date) {
+    $requette = "INSERT INTO depense VALUES (NULL, %d, %.2f,'%s')";
+    $requette = sprintf($requette, $idcategoriedepense, $montant,$date);
     $result = mysqli_query(dbconnect(), $requette);
     if ($result) {
         echo "Insertion dans 'depense' réussie.";
@@ -172,6 +172,7 @@ function getAllCueilleur() {
     return $data;
 }
 
+<<<<<<< Updated upstream
 function getAllCueillette() {
     $db = dbconnect(); 
     $query = "SELECT * FROM cueillette";
@@ -185,6 +186,8 @@ function getAllCueillette() {
     }
     return $data;
 }
+=======
+>>>>>>> Stashed changes
 
 function getAllCategorieDepense() {
     $db = dbconnect(); 
@@ -337,9 +340,35 @@ function poids_restant_parcelle_date($date_debut, $date_fin) {
 }
 
 
-function cout_revient_kg(){
+function calculer_cout_revient_par_kg($date_debut, $date_fin) {
+    $db = dbconnect();
     
+    $query = "SELECT 
+                SUM(d.montant) / SUM(c.poids) AS cout_revient_par_kg
+              FROM 
+                depense d
+              LEFT JOIN 
+                cueillette c ON d.datedepense = c.datecueillette
+              WHERE 
+                d.datedepense BETWEEN ? AND ?";
+    
+    $stmt = mysqli_prepare($db, $query);
+    mysqli_stmt_bind_param($stmt, "ss", $date_debut, $date_fin);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    
+    $cout_revient_par_kg = 0;
+    
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $cout_revient_par_kg = $row['cout_revient_par_kg'];
+    }
+    
+    mysqli_stmt_close($stmt);
+    return $cout_revient_par_kg;
 }
+
+
 
 
 
