@@ -33,4 +33,15 @@ include 'fonction.php';
     // insertresultat(100, 50, 200.50);
     ?><br><?php
 
+    echo "Poids total cueilli sur toutes les parcelles : " . poids_total_parcelle() . " kg";
+    ?><br><?php
+
+    // Test de la fonction poids_restant_par_parcelle
+    echo "Poids restant sur chaque parcelle : <br>";
+    $poids_restants = poids_restant_par_parcelle();
+    $num_parcelles = count($poids_restants);
+    for ($i = 0; $i < $num_parcelles; $i++) {
+        echo "Parcelle " . $poids_restants[$i]['idparcelle'] . ": " . $poids_restants[$i]['poids_restant'] . " kg<br>";
+    }
+
 ?>
