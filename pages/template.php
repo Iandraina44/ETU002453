@@ -1,5 +1,8 @@
 <?php
 include ("../inc/fonction.php");
+session_start();
+$statut=$_SESSION['statut'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,8 +52,11 @@ include ("../inc/fonction.php");
 
      <nav class="sidebar sidebar-offcanvas" id="sidebar" >
           <ul class="nav" style="">
-
+          <?php if($statut==0){ ?>
             
+            <li class="nav-item">
+              <h3>-BACKOFFICE</h3>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="template.php?page=accueil">
                 <span class="menu-title">Accueil</span>
@@ -109,7 +115,12 @@ include ("../inc/fonction.php");
               </a>
             </li>
 
+            <?php } ?>
 
+            
+            <li class="nav-item">
+              <h3>-FRONTOFFICE</h3>
+            </li>
 
             <li class="nav-item">
               <a class="nav-link" href="template.php?page=frontoffice/resultat">
@@ -149,7 +160,7 @@ include ("../inc/fonction.php");
 
         <div class="main-panel">
 
-        <div class="containerfluid">
+        <div class="containerfluid" >
           <!-- contenu -->
           <?php
 
@@ -159,6 +170,7 @@ include ("../inc/fonction.php");
           ?>
           <!--  -->
         </div>
+        
 
           <footer class="footer">
             <div class="container-fluid d-flex justify-content-between">

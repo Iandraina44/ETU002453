@@ -6,9 +6,10 @@ $max=$_GET['max'];
 
 $poidstotal=poids_total_parcelle_date($min,$max);
 $poidsrestant=poids_restant_parcelle_date($min,$max);
- $poidsrestant;
+ $cpderevient=prixRevientParKg();
+echo $cpderevient;
 
-header('location:../template.php?page=frontoffice/resultat&poidstotal='.$poidstotal.'&poidsrestant='.$poidsrestant[0])
+header('location:../template.php?page=frontoffice/resultat&poidstotal='.$poidstotal.'&poidsrestant='.$poidsrestant[0].'&prixrevient='.$cpderevient)
 
 
 

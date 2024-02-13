@@ -15,6 +15,13 @@ if (isset($_GET['poidsrestant'])) {
 }
 
 
+$prixrevient=0;
+if (isset($_GET['prixrevient'])) {
+    $prixrevient=$_GET['prixrevient'];
+}
+
+
+
 ?>
 
 <div class="content-wrapper">
@@ -81,11 +88,11 @@ if (isset($_GET['poidsrestant'])) {
                    
                    <p class="font-weight-normal mb-3">Poids restant sur les parcelles <i class="mdi mdi-weight mdi-24px float-right"></i>
                    
-                    <br><strong   class="mb-5"><?php echo $poidsrestant ?></strong>  </p>
+                    <br><strong   class="mb-5"><?php echo $poidsrestant ?> kg</strong>  </p>
 
                     <p class="font-weight-normal mb-3">Cout de revient  <i class="mdi mdi-chart-line mdi-24px float-right"></i>
                    
-                    <br> <strong   class="mb-5">$ 15,0000</strong> </p>
+                    <br> <strong   class="mb-5"><?php echo $prixrevient ?> $/kg</strong> </p>
                    
                      
                   </div>
