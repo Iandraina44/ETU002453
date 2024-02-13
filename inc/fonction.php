@@ -736,7 +736,9 @@ function selectAllPaiement() {
 
 
 function sumDepenses($dateDebut, $dateFin) {
-    $query = "SELECT SUM(montant) AS total FROM depense WHERE datedepense BETWEEN '%s' AND '%s'";
+    $query = "SELECT SUM(montant) AS total 
+    FROM depense 
+    WHERE datedepense BETWEEN '%s' AND '%s'";
     $query = sprintf($query, $dateDebut, $dateFin);
     $result = mysqli_query(dbconnect(), $query);
     if ($result && mysqli_num_rows($result) > 0) {
@@ -779,7 +781,7 @@ function TotalVentes($dateDebut, $dateFin) {
 
 function calculateBenefice($dateDebut, $dateFin) {
     $totalVentes = TotalVentes($dateDebut, $dateFin);
-    $totalDepenses = totalDepenses($dateDebut, $dateFin);
+    $totalDepenses = sumDepenses($dateDebut, $dateFin);
     $benefice = $totalVentes - $totalDepenses;
     return $benefice;
 }
