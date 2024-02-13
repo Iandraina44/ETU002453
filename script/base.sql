@@ -33,6 +33,8 @@ create table parcelle(
     foreign key (idthe) references the (idthe)
 );
 
+
+
 insert into parcelle values(NULL,2000,1);
 
 create table cueilleur (
@@ -72,13 +74,6 @@ create table depense(
     datedepense date 
 );
 
-create table resultat(
-    idresultat int auto_increment primary key,
-    poidtotalcueillette double not null,
-    poidrestantparcelle double not null,
-    coutrevient double not null
-);
-
 create table remuneration(
     idceuilleur int ,
     foreign key (idceuilleur) references cueilleur (idceuilleur);
@@ -98,10 +93,28 @@ create table paiement(
 );
 
 create table saison(
-    idmois int check (statut between 1 and 12)
+    idmois int check (idmois between 1 and 12)
 );
+
+
+
+
 
 insert into user values(null,'admin','admin',sha1('admin'),'admin@gmail.com',0);
 insert into user values(null,'normal','normal',sha1('normal'),'normal@gmail.com',1);
 
 insert into cueilleur values(NULL,'doda','H','2000-12-14');
+
+
+SELECT 
+    SUM((th.rendement * p.surface * 10000 / th.occupation)) - COALESCE(SUM(c.poids), 0) AS poids_restant
+FROM 
+    parcelle p
+JOIN 
+    the th ON p.idthe = th.idthe
+LEFT JOIN 
+    cueillette c ON p.idparcelle = c.idparcelle
+WHERE 
+    c.datecueillette <= '2024-02-13'
+    AND MONTH(c.datecueillette) >= (SELECT idmois FROM saison WHERE idmois <= MONTH('2024-02-13') ORDER BY idmois DESC LIMIT 1);
+

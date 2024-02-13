@@ -96,7 +96,15 @@ include ("../inc/fonction.php");
 
 
             <li class="nav-item">
-              <a class="nav-link" href="">
+              <a class="nav-link" href="template.php?page=backoffice/saison">
+                <span class="menu-title">saison</span>
+                <i class="mdi mdi-table-large menu-icon"></i>
+              </a>
+            </li>
+
+
+            <li class="nav-item">
+              <a class="nav-link" href="template.php?page=frontoffice/resultat">
                 <span class="menu-title">Resultat</span>
                 <i class="mdi mdi-message-alert menu-icon"></i>
               </a>
