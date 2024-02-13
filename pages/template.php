@@ -97,10 +97,18 @@ include ("../inc/fonction.php");
 
             <li class="nav-item">
               <a class="nav-link" href="template.php?page=backoffice/saison">
-                <span class="menu-title">saison</span>
+                <span class="menu-title">Saison</span>
                 <i class="mdi mdi-table-large menu-icon"></i>
               </a>
             </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="template.php?page=backoffice/configuration">
+                <span class="menu-title">Configuration</span>
+                <i class="mdi mdi-table-large menu-icon"></i>
+              </a>
+            </li>
+
 
 
             <li class="nav-item">
