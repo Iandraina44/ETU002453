@@ -132,6 +132,13 @@ include ("../inc/fonction.php");
               </a>
             </li>
 
+            </li>
+              <li class="nav-item">
+              <a class="nav-link" href="template.php?page=frontoffice/paiement">
+                <span class="menu-title">Paiement</span>
+                <i class="mdi mdi-leaf menu-icon"></i>
+              </a>
+            </li>
 
 
 

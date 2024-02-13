@@ -498,8 +498,22 @@ function selectRemuneration($id) {
     return $data;
 }
 
+function selectallRemuneration() {
+    $query = "SELECT * FROM remuneration  ";
+    $result = mysqli_query(dbconnect(), $query);
+    $data = array();
+    if ($result && mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
+        }
+        mysqli_free_result($result);
+    }
+    return $data;
+}
+
+
 function insertRemuneration($idCueilleur, $poidsMinimum, $bonus, $malus) {
-    $query = "INSERT INTO remuneration (idcueilleur, poidminimum, bonus, malus) VALUES (%d, %.2f, %.2f, %.2f)";
+    $query = "INSERT INTO remuneration VALUES (%d, %.2f, %.2f, %.2f)";
     $query = sprintf($query, $idCueilleur, $poidsMinimum, $bonus, $malus);
     $result = mysqli_query(dbconnect(), $query);
     if ($result) {
