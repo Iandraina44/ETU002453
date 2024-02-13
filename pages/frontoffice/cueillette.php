@@ -1,4 +1,6 @@
+
 <!DOCTYPE html>
+ <script src="../inc/script.js"></script>
   <?php 
     $listcueilleur=getAllCueilleur();
     $listparcelle=getAllParcelle();
@@ -20,15 +22,15 @@
                     <h3 class="card-title">Cueillette</h3>
                     <p class="card-description">formulaire d'insertion</p>
 
-                    <form class="forms-sample" method="get" action="frontoffice/traitcueillette.php">
+                    <form class="forms-sample" id="formss">
                       <div class="form-group">
                         <label for="exampleInputUsername1"> Date cueillette</label>
-                        <input name="datecueillette" type="date" class="form-control" id="exampleInputUsername1" name=" surface">
+                        <input name="datecueillette" type="date" class="form-control" id="datecueillette" name=" surface">
                       </div>
 
                        <div class="form-group" >
                       <label name="idcueilleur" for="exampleFormControlSelect1">Cueilleur </label>
-                      <select name="idcueilleur" class="form-control form-control-sm" id="exampleFormControlSelect1">
+                      <select name="idcueilleur" class="form-control form-control-sm" id="Cueilleur">
                         <?php for ($i=0; $i < count($listcueilleur) ; $i++) {  ?>
                           <option value="<?php echo $listcueilleur[$i]['idcueilleur'] ?>"><?php echo $listcueilleur[$i]['idcueilleur']."/".$listcueilleur[$i]['nom'] ?></option>
                           <?php } ?>
@@ -37,7 +39,7 @@
 
                     <div class="form-group">
                       <label name="idparcelle" for="exampleFormControlSelect1">Idparcelle </label>
-                      <select name="idparcelle" class="form-control form-control-sm" id="exampleFormControlSelect1">
+                      <select name="idparcelle" class="form-control form-control-sm" id="idparcelle">
                       <?php for ($i=0; $i < count($listparcelle) ; $i++) {  ?>
                           <option value="<?php echo $listparcelle[$i]['idparcelle'] ?>"><?php echo $listparcelle[$i]['idparcelle']."/".$listparcelle[$i]['surface'] ?></option>
                           <?php } ?>
@@ -46,11 +48,11 @@
 
                     <div class="form-group">
                         <label for="exampleInputUsername1"> Poids</label>
-                        <input name="poids" type="number" class="form-control" id="exampleInputUsername1" name="poids" placeholder="poids">
+                        <input name="poids" type="number" class="form-control" id="poids" name="poids" placeholder="poids">
                       </div>
 
                       
-                      <button type="submit" class="btn btn-gradient-secondary btn-rounded btn-fw me-2">Valider</button>
+                      <button  type="submit"  id="button1"class="btn btn-gradient-secondary btn-rounded btn-fw me-2" >Valider</button>
                      
                     </form>
 
@@ -60,7 +62,13 @@
 
      </div>
 
-
+<script type="text/javascript">
+  var submitButtonCueillette=document.getElementById("button1");
+  submitButtonCueillette.addEventListener("click", function (event) {
+            event.preventDefault();
+            sendDataCueillette();
+        });
+</script>
                    <div class="col-lg-8 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">

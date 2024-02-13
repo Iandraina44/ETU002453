@@ -93,11 +93,6 @@ function insertcueillette($datecueillette, $idcueilleur, $idparcelle, $poids) {
         $requette = "INSERT INTO cueillette VALUES (NULL, '%s', %d, %d, %.2f)";
         $requette = sprintf($requette, $datecueillette, $idcueilleur, $idparcelle, $poids);
         $result = mysqli_query(dbconnect(), $requette);
-        if ($result) {
-            echo "Insertion dans 'cueillette' réussie.";
-        } else {
-            echo "Erreur lors de l'insertion dans 'cueillette': " . mysqli_error(dbconnect());
-        }
     }
     return $validation;
    
