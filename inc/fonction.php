@@ -463,6 +463,8 @@ function sumPoidsCueillis() {
 
 function prixRevientParKg() {
     $totalDepenses = sumDep();
+    $salaire= totalSalaireCueilleurs();
+    $totalDepenses=$totalDepenses+$salaire;
 
   $totalPoidsCueillis = sumPoidsCueillis();
 
@@ -684,34 +686,41 @@ function selectSalairesByIdCueilleur($idCueilleur) {
 }
 
 
-function calculatePayment($dateDebut, $dateFin, $idCueilleur,$datecueillette) {
-    $remuneration = selectRemuneration($idCueilleur);
-    if (empty($remuneration)) {
-        echo "Aucune donnée de rémunération trouvée pour le cueilleur avec l'ID : $idCueilleur";
-        return;
-    }
-    $poidsCueillette = selectPoidsCueillette($dateDebut, $dateFin, $idCueilleur);
-    $paiementTotal = 0;
-    $nombreJours = count($poidsCueillette);
-    $poidsMinimum = $remuneration[0]['poidminimum'];
-    $salaireall = selectSalairesByIdCueilleur($idCueilleur);
-    $salaire=$salaireall[0]['montant'];
-    $bonus = $remuneration[0]['bonus'];
-    $malus = $remuneration[0]['malus'];
-    for ($i = 0; $i < $nombreJours; $i++) {
-        if ($poidsCueillette[$i] < $poidsMinimum) {
-            $paiement = $salaire - ($salaire * $malus / 100);
-        } else {
-            $paiement = $salaire + ($salaire * $bonus / 100);
+function calculepayement($dateDebut, $dateFin) {
+    $cueilleurs = getAllCueilleur();
+    $paid=0;
+    for ($i = 0; $i < count($cueilleurs); $i++) {
+        $remuneration = selectRemuneration($cueilleurs[$i]['idcueilleur']);
+        if (empty($remuneration)) {
+            echo "Aucune donnée de rémunération trouvée pour le cueilleur avec l'ID : {$cueilleurs[$i]['idcueilleur']}";
+            continue;
         }
-        $paiementTotal += $paiement;
+        $poidsCueillette = selectPoidsCueillette($dateDebut, $dateFin, $cueilleurs[$i]['idcueilleur']);
+        $paiementTotal = 0;
+        $nombreJours = count($poidsCueillette);
+        $poidsMinimum = $remuneration[0]['poidminimum'];
+        $salaireall = selectSalairesByIdCueilleur($cueilleurs[$i]['idcueilleur']);
+        $salaire = $salaireall[0]['montant'];
+        $bonus = $remuneration[0]['bonus'];
+        $malus = $remuneration[0]['malus'];
+        for ($j = 0; $j < $nombreJours; $j++) {
+            if ($poidsCueillette[$j] < $poidsMinimum) { 
+                $paiement = $salaire - ($salaire * $malus / 100);
+            } else {
+                $paiement = $salaire + ($salaire * $bonus / 100);
+            }
+            $paiementTotal += $paiement;
+        }
+        $paiementTotal = max(0, $paiementTotal);
+        $nom = selectNomCueilleur($cueilleurs[$i]['idcueilleur']);
+        $paid=$paid+$paiementTotal;
+        deleteAllRemuneration();
+        insertPaiement($dateDebut, $nom, $poidsCueillette, $bonus, $malus, $paiementTotal);
+        
     }
-    $paiementTotal = max(0, $paiementTotal);
-    $nom = selectNomCueilleur($idCueilleur);
-    deleteAllRemuneration();
-    insertPaiement($datecueillette, $nom, $poidsCueillette, $bonus, $malus, $paiementTotal);
-    return $paiementTotal;
+    return $paid;
 }
+
 
 
 function selectAllPaiement() {
@@ -748,15 +757,10 @@ function sumDepenses($dateDebut, $dateFin) {
 }
 
 function totalDepenses($dateDebut, $dateFin) {
-    $cueilleurs = getAllCueilleur();
     $totalDepenses = 0;
     $sumdep=sumDepenses($dateDebut,$dateFin);
-    $totalCueilleurs = count($cueilleurs);
-    for ($i = 0; $i < $totalCueilleurs; $i++) {
-        $idCueilleur = $cueilleurs[$i]['idcueilleur'];
-        $totalDepenses += calculatePayment($dateDebut, $dateFin, $idCueilleur);
-    }
-    $totalDepenses=$totalDepenses+$sumdep;
+    $totalsalaire =calculepayement($dateDebut, $dateFin) ;
+    $totalDepenses=$totalsalaire+$sumdep;
     return $totalDepenses;
 }
 
