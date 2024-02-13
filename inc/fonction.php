@@ -820,5 +820,63 @@ function poids_restant_byparcelle_date($min, $max) {
 }
 
 
+function getNom($id) {
+    $db = dbconnect();
+
+    if (!$db) {
+        return "Erreur de connexion à la base de données";
+    }
+    $query = sprintf("SELECT variete, occupation FROM the WHERE idthe = %d", $id);
+    $result = mysqli_query($db, $query);
+    if ($result && mysqli_num_rows($result) > 0) {
+
+        $row = mysqli_fetch_assoc($result);
+
+        $data = array(
+            'nom' => $row['variete'],
+            'occupation' => $row['occupation']
+        );
+
+        mysqli_free_result($result);
+        return $data;
+    } else {
+
+        return "Aucune variété trouvée pour cet ID";
+    }
+}
+
+
+function assembleResultats($date) {
+    $poidsRestant = poids_restant_byparcelle_date($date, $date);
+    $parcelles = getAllParcelle();
+    $resultats = array();
+    foreach ($parcelles as $parcelle) {
+        $idParcelle = $parcelle['idparcelle'];
+        $nomVarieteEtOccupation = getNom($parcelle['idthe']);
+        $surface = $parcelle['surface'];
+        if(isset($poidsRestant[$idParcelle])){
+            $poidsRestantParcelle = $poidsRestant[$idParcelle];
+        }else{
+            $poidsRestantParcelle = 0;
+        }
+        $nombreDePieds = $surface / $nomVarieteEtOccupation['occupation'];
+        $detailsParcelle = array(
+            'id' => $parcelle['idparcelle'],
+            'nom_variete' => $nomVarieteEtOccupation['nom'],
+            'surface' => $surface,
+            'poids_restant' => $poidsRestantParcelle,
+            'nombre_de_pieds' => $nombreDePieds
+        );
+        $resultats[] = $detailsParcelle;
+    }
+    return $resultats;
+}
+
+
+
+
+
+
+
 
 ?>
