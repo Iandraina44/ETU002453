@@ -669,6 +669,26 @@ function calculatePayment($dateDebut, $dateFin, $idCueilleur) {
     return $paiementTotal;
 }
 
+
+function selectAllPaiement() {
+    $db = dbconnect();
+
+    $query = "SELECT * FROM paiement";
+
+    $result = mysqli_query($db, $query);
+
+    $paiements = array();
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $paiements[] = $row;
+        }
+    }
+
+    return $paiements;
+}
+
+
 function sumDepenses($dateDebut, $dateFin) {
     $query = "SELECT SUM(montant) AS total FROM depense WHERE datedepense BETWEEN '%s' AND '%s'";
     $query = sprintf($query, $dateDebut, $dateFin);
