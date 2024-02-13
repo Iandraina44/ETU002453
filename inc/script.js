@@ -42,7 +42,6 @@
                 var montant=document.getElementById("montant");
                 var poids=document.getElementById("poids total");
             
-                // poids.innerHTML="poids total thé restant:" +response[0];
 
                 for (var i = 0; i < response.length; i++) {
                     
