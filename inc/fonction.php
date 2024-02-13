@@ -94,9 +94,9 @@ function insertcueillette($datecueillette, $idcueilleur, $idparcelle, $poids) {
     }
 }
 
-function insertdepense($idcategoriedepense, $montant) {
-    $requette = "INSERT INTO depense VALUES (NULL, %d, %.2f)";
-    $requette = sprintf($requette, $idcategoriedepense, $montant);
+function insertdepense($idcategoriedepense, $montant,$date) {
+    $requette = "INSERT INTO depense VALUES (NULL, %d, %.2f,'%s')";
+    $requette = sprintf($requette, $idcategoriedepense, $montant,$date);
     $result = mysqli_query(dbconnect(), $requette);
     if ($result) {
         echo "Insertion dans 'depense' réussie.";
@@ -130,6 +130,19 @@ function getStatutPersonne($id){
     }   
     
 }
+
+function insertRemuneration($idCueilleur, $poidsMinimum, $bonus, $malus) {
+    $query = "INSERT INTO remuneration (idcueilleur, poids_minimum, bonus, malus) VALUES (%d, %.2f, %.2f, %.2f)";
+    $query = sprintf($query, $idCueilleur, $poidsMinimum, $bonus, $malus);
+    $result = mysqli_query(dbconnect(), $query);
+    if ($result) {
+        echo "Insertion into 'remuneration' successful.";
+    } else {
+        echo "Error inserting into 'remuneration': " . mysqli_error(dbconnect());
+    }
+}
+
+
 function getAllThe() {
     $db = dbconnect(); 
     $query = "SELECT * FROM the";
@@ -171,6 +184,24 @@ function getAllCueilleur() {
     }
     return $data;
 }
+
+function getAllCueillette() {
+    $db = dbconnect(); 
+    $query = "SELECT * FROM cueillette";
+    $result = mysqli_query($db, $query);
+    $data = array(); 
+    if ($result && mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
+        }
+        mysqli_free_result($result); // Libérer la mémoire après avoir récupéré les données
+    }
+    return $data;
+}
+<<<<<<< Updated upstream
+
+=======
+>>>>>>> Stashed changes
 
 function getAllCategorieDepense() {
     $db = dbconnect(); 
@@ -323,9 +354,96 @@ function poids_restant_parcelle_date($date_debut, $date_fin) {
 }
 
 
-function cout_revient_kg(){
+function calculer_cout_revient_par_kg($date_debut, $date_fin) {
+    $db = dbconnect();
     
+    $query = "SELECT 
+                SUM(d.montant) / SUM(c.poids) AS cout_revient_par_kg
+              FROM 
+                depense d
+              LEFT JOIN 
+                cueillette c ON d.datedepense = c.datecueillette
+              WHERE 
+                d.datedepense BETWEEN ? AND ?";
+    
+    $stmt = mysqli_prepare($db, $query);
+    mysqli_stmt_bind_param($stmt, "ss", $date_debut, $date_fin);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    
+    $cout_revient_par_kg = 0;
+    
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $cout_revient_par_kg = $row['cout_revient_par_kg'];
+    }
+    
+    mysqli_stmt_close($stmt);
+    return $cout_revient_par_kg;
 }
+
+function deleteSaison($idMois) {
+    $query = "DELETE FROM saison WHERE idmois = %d";
+    $query = sprintf($query, $idMois);
+    $result = mysqli_query(dbconnect(), $query);
+    if ($result) {
+        echo "Deletion from 'saison' successful.";
+    } else {
+        echo "Error deleting from 'saison': " . mysqli_error(dbconnect());
+    }
+}
+
+function deleteSaisonAll() {
+    $query = "DELETE FROM saison";
+    $result = mysqli_query(dbconnect(), $query);
+    if ($result) {
+        echo "All records deleted from 'saison'.";
+    } else {
+        echo "Error deleting from 'saison': " . mysqli_error(dbconnect());
+    }
+}
+
+function insertSaison($idMois) {
+    $query = "INSERT INTO saison (idmois) VALUES (%d)";
+    $query = sprintf($query, $idMois);
+    $result = mysqli_query(dbconnect(), $query);
+    if ($result) {
+        echo "Insertion into 'saison' successful.";
+    } else {
+        echo "Error inserting into 'saison': " . mysqli_error(dbconnect());
+    }
+}
+
+function selectAllSaison() {
+    $db = dbconnect(); 
+    $query = "SELECT * FROM saison";
+    $result = mysqli_query($db, $query);
+    $data = array(); 
+    if ($result && mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
+        }
+        mysqli_free_result($result);
+        return $data;
+    } else {
+        echo "Error selecting from 'saison': " . mysqli_error($db);
+        return [];
+    }
+}
+
+
+
+function insertdeletesaison($tab){
+    deleteSaisonAll();
+
+    foreach($tab as $idMois) {
+        insertSaison($idMois);
+    }
+}
+
+
+
+
 
 
 

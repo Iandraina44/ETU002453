@@ -25,6 +25,8 @@ create table parcelle(
     foreign key (idthe) references the (idthe)
 );
 
+insert into parcelle values(NULL,2000,1);
+
 create table cueilleur (
     idcueilleur int auto_increment primary key,
     nom varchar (256),
@@ -58,7 +60,8 @@ create table depense(
     iddep int auto_increment primary key,
     idcategoriedepense int,
     foreign key (idcategoriedepense) references categoriedepense (idcategoriedepense),
-    montant double not null
+    montant double not null,
+    datedepense date 
 );
 
 create table resultat(
@@ -66,6 +69,19 @@ create table resultat(
     poidtotalcueillette double not null,
     poidrestantparcelle double not null,
     coutrevient double not null
+);
+
+create table remuneration(
+    idceuilleur int ,
+    foreign key (idceuilleur) references cueilleur (idceuilleur);
+    poidminimum double not null,
+    bonus double not null,
+    malus double not null
+
+);
+
+create table saison(
+    idmois int check (statut between 1 and 12)
 );
 
 insert into user values(null,'admin','admin',sha1('admin'),'admin@gmail.com',0);
