@@ -312,22 +312,26 @@ function poids_restant_parcelle() {
     return $data;
 }
 
-function poids_restant_parcelle_date($date_debut, $date_fin) {
+function poids_restant_parcelle_date($min, $max) {
     $db = dbconnect();
+
     
     $query = "SELECT 
-                p.surface - COALESCE(SUM(c.poids), 0) AS poids_restant
-              FROM 
-                parcelle p
-              LEFT JOIN 
-                cueillette c ON p.idparcelle = c.idparcelle";
+    SUM((th.rendement * p.surface * 10000 / th.occupation)) - COALESCE(SUM(c.poids), 0) AS poids_restant
+    FROM 
+        parcelle p
+    JOIN 
+        the th ON p.idthe = th.idthe
+    LEFT JOIN 
+        cueillette c ON p.idparcelle = c.idparcelle
+    WHERE 
+        c.datecueillette <= '%s'
+        AND MONTH(c.datecueillette) >= (SELECT idmois FROM saison WHERE idmois <= MONTH('%s') ORDER BY idmois DESC LIMIT 1);";
 
-    if ($date_debut !== null && $date_fin !== null) {
-        $query .= " WHERE c.datecueillette BETWEEN '$date_debut' AND '$date_fin'";
-    }
-    
-    $query .= " GROUP BY p.idparcelle";
-    
+    $query=sprintf($query,$max,$max);    
+
+    echo $query;
+
     $result = mysqli_query($db, $query);
     $data = array();
     
@@ -339,6 +343,7 @@ function poids_restant_parcelle_date($date_debut, $date_fin) {
     
     return $data;
 }
+
 
 
 function calculer_cout_revient_par_kg($date_debut, $date_fin) {
