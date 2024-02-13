@@ -494,7 +494,7 @@ function selectRemuneration($id) {
 }
 
 function insertRemuneration($idCueilleur, $poidsMinimum, $bonus, $malus) {
-    $query = "INSERT INTO remuneration (idcueilleur, poids_minimum, bonus, malus) VALUES (%d, %.2f, %.2f, %.2f)";
+    $query = "INSERT INTO remuneration (idcueilleur, poidminimum, bonus, malus) VALUES (%d, %.2f, %.2f, %.2f)";
     $query = sprintf($query, $idCueilleur, $poidsMinimum, $bonus, $malus);
     $result = mysqli_query(dbconnect(), $query);
     if ($result) {
@@ -543,7 +543,65 @@ function calculatePayment($dateDebut, $dateFin, $idCueilleur) {
     $datePaiement = date("Y-m-d");
     $nom = selectNomCueilleur($idCueilleur);
     insertPaiement($datePaiement, $nom, $poidsCueillette, $bonus, $malus, $paiementTotal);
+    return $paiementTotal;
 }
+
+function sumDepenses($dateDebut, $dateFin) {
+    $query = "SELECT SUM(montant) AS total FROM depense WHERE datedepense BETWEEN '%s' AND '%s'";
+    $query = sprintf($query, $dateDebut, $dateFin);
+    $result = mysqli_query(dbconnect(), $query);
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $total = $row['total'];
+        mysqli_free_result($result);
+        return $total;
+    } else {
+        return 0;
+    }
+}
+
+function totalDepenses($dateDebut, $dateFin) {
+    $cueilleurs = getAllCueilleur();
+    $totalDepenses = 0;
+    $sumdep=sumDepenses($dateDebut,$dateFin);
+    $totalCueilleurs = count($cueilleurs);
+    for ($i = 0; $i < $totalCueilleurs; $i++) {
+        $idCueilleur = $cueilleurs[$i]['idcueilleur'];
+        $totalDepenses += calculatePayment($dateDebut, $dateFin, $idCueilleur);
+    }
+    $totalDepenses=$totalDepenses+$sumdep;
+    return $totalDepenses;
+}
+
+
+function TotalVentes($dateDebut, $dateFin) {
+    $query = "SELECT SUM(c.poids * pt.prixthe) AS montant_total_ventes
+              FROM cueillette c
+              JOIN parcelle p ON c.idparcelle = p.idparcelle
+              JOIN prixthe pt ON p.idthe = pt.idthe
+              JOIN the t ON p.idthe = t.idthe
+              WHERE c.datecueillette BETWEEN '$dateDebut' AND '$dateFin'";
+    $result = mysqli_query(dbconnect(), $query);
+    if ($result) {
+        $row = mysqli_fetch_assoc($result);
+        $totalSales = $row['montant_total_ventes'];
+        mysqli_free_result($result);
+        return $totalSales;
+    } else {
+        echo "Erreur lors de l'exécution de la requête : " . mysqli_error(dbconnect());
+        return false;
+    }
+}
+
+function calculateBenefice($dateDebut, $dateFin, $idCueilleur) {
+    $totalVentes = TotalVentes($dateDebut, $dateFin);
+    $totalDepenses = totalDepenses($dateDebut, $dateFin);
+    $benefice = $totalVentes - $totalDepenses;
+    return $benefice;
+}
+
+
+
 
 
 
