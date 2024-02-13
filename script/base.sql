@@ -18,6 +18,14 @@ create table the(
     rendement double not null
 );
 
+create table prixthe(
+    idprixthe int auto_increment primary key,
+    idthe int,
+    foreign key (idthe) references the (idthe),
+    prixthe double not null
+
+);
+
 create table parcelle(
     idparcelle int auto_increment primary key,
     surface double not null,
@@ -77,6 +85,15 @@ create table remuneration(
     poidminimum double not null,
     bonus double not null,
     malus double not null
+);
+
+create table paiement(
+    datecueillette date not null,
+    nom varchar(256) not null,
+    poidcueilli double not null,
+    bonus double not null,
+    mallus double not null,
+    paiement double not null
 
 );
 
