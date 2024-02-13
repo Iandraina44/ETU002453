@@ -787,8 +787,4 @@ function calculateBenefice($dateDebut, $dateFin, $idCueilleur) {
 }
 
 
-
-
-
-
 ?>

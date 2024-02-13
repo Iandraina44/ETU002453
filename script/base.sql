@@ -105,3 +105,8 @@ insert into user values(null,'admin','admin',sha1('admin'),'admin@gmail.com',0);
 -- insert into user values(null,'normal','normal',sha1('normal'),'normal@gmail.com',1);
 
 -- insert into cueilleur values(NULL,'doda','H','2000-12-14');
+
+SELECT p.idthe, SUM(p.surface / t.occupation) AS nombre_de_pieds
+FROM parcelle p
+JOIN the t ON p.idthe = t.idthe
+GROUP BY p.idthe;
