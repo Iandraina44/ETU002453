@@ -144,6 +144,7 @@ create table saison(
 );
 
 
+<<<<<<< Updated upstream
 insert into saison values(1);
 insert into saison values(2);
 insert into saison values(3);
@@ -156,3 +157,31 @@ insert into saison values(9);
 insert into saison values(10);
 insert into saison values(11);
 insert into saison values(12);
+=======
+-- insert into cueilleur values(NULL,'doda','H','2000-12-14');
+
+SELECT p.idthe, SUM(p.surface / t.occupation) AS nombre_de_pieds
+FROM parcelle p
+JOIN the t ON p.idthe = t.idthe
+GROUP BY p.idthe;
+
+CREATE VIEW poids_restant_view AS
+SELECT 
+    p.idparcelle,
+    th.variete AS nom_the,
+    p.surface AS superficie,
+    SUM((th.rendement * p.surface * 10000 / th.occupation)) - COALESCE(SUM(c.poids), 0) AS poids_restant,
+    (p.surface / th.occupation) AS nombre_pieds_restants
+FROM 
+    parcelle p
+JOIN 
+    the th ON p.idthe = th.idthe
+LEFT JOIN 
+    cueillette c ON p.idparcelle = c.idparcelle
+WHERE 
+    c.datecueillette <= '%s'
+    AND MONTH(c.datecueillette) >= (SELECT idmois FROM saison WHERE idmois <= MONTH('%s') ORDER BY idmois DESC LIMIT 1)
+GROUP BY
+    p.idparcelle;
+
+>>>>>>> Stashed changes
