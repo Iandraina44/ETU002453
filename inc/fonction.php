@@ -412,6 +412,72 @@ function calculer_cout_revient_par_kg($date_debut, $date_fin) {
     return $cout_revient_par_kg;
 }
 
+function sumDep() {
+    $query = "SELECT SUM(montant) AS total FROM depense ";
+   
+    $result = mysqli_query(dbconnect(), $query);
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $total = $row['total'];
+        mysqli_free_result($result);
+        return $total;
+    } else {
+        return 0;
+    }
+}
+
+function totalSalaireCueilleurs() {
+    $db = dbconnect();
+
+    $query = "SELECT SUM(montant) AS total_salaire
+              FROM salaire
+              WHERE idceuilleur IN (SELECT DISTINCT idceuilleur FROM cueillette)";
+
+    $result = mysqli_query($db, $query);
+
+    $totalSalaire = 0;
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $totalSalaire = $row['total_salaire'];
+    }
+
+    return $totalSalaire;
+}
+
+function sumPoidsCueillis() {
+    $db = dbconnect();
+
+    $query = "SELECT SUM(poids) AS total_poids
+              FROM cueillette";
+
+    $result = mysqli_query($db, $query);
+
+    $totalPoids = 0;
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $totalPoids = $row['total_poids'];
+    }
+
+    return $totalPoids;
+}
+
+function prixRevientParKg() {
+    $totalDepenses = sumDep();
+
+  $totalPoidsCueillis = sumPoidsCueillis();
+
+    if ($totalPoidsCueillis != 0) {
+
+        $prixRevientParKg = $totalDepenses / $totalPoidsCueillis;
+        return $prixRevientParKg;
+    } else {
+        return "Impossible de calculer le prix de revient par kg, aucun poids cueilli.";
+    }
+}
+
+
+
+
 function deleteSaison($idMois) {
     $query = "DELETE FROM saison WHERE idmois = %d";
     $query = sprintf($query, $idMois);
