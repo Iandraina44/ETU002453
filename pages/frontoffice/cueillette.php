@@ -1,6 +1,14 @@
+<<<<<<< Updated upstream
 
 <!DOCTYPE html>
  <script src="../inc/script.js"></script>
+=======
+<?php include ("../../inc/fonction.php");
+ ?>
+
+<!DOCTYPE html>
+ <script src="../../inc/script.js"></script>
+>>>>>>> Stashed changes
   <?php 
     $listcueilleur=getAllCueilleur();
     $listparcelle=getAllParcelle();
@@ -22,7 +30,11 @@
                     <h3 class="card-title">Cueillette</h3>
                     <p class="card-description">formulaire d'insertion</p>
 
+<<<<<<< Updated upstream
                     <form class="forms-sample" id="formss">
+=======
+                    <form class="forms-sample">
+>>>>>>> Stashed changes
                       <div class="form-group">
                         <label for="exampleInputUsername1"> Date cueillette</label>
                         <input name="datecueillette" type="date" class="form-control" id="datecueillette" name=" surface">
@@ -52,7 +64,11 @@
                       </div>
 
                       
+<<<<<<< Updated upstream
                       <button  type="submit"  id="button1"class="btn btn-gradient-secondary btn-rounded btn-fw me-2" >Valider</button>
+=======
+                      <button type="submit"  id="button1"class="btn btn-gradient-secondary btn-rounded btn-fw me-2" >Valider</button>
+>>>>>>> Stashed changes
                      
                     </form>
 
@@ -63,8 +79,13 @@
      </div>
 
 <script type="text/javascript">
+<<<<<<< Updated upstream
   var submitButtonCueillette=document.getElementById("button1");
   submitButtonCueillette.addEventListener("click", function (event) {
+=======
+  var bouton=document.getElementById("button1");
+  bouton.addEventListener("click", function (event) {
+>>>>>>> Stashed changes
             event.preventDefault();
             sendDataCueillette();
         });

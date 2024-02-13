@@ -53,11 +53,7 @@ function insertcueilleur($nom, $genre, $datenaissance) {
     $requette = "INSERT INTO cueilleur VALUES (NULL, '%s', '%s', '%s')";
     $requette = sprintf($requette, $nom, $genre, $datenaissance);
     $result = mysqli_query(dbconnect(), $requette);
-    if ($result) {
-        echo "Insertion dans 'cueilleur' réussie.";
-    } else {
-        echo "Erreur lors de l'insertion dans 'cueilleur': " . mysqli_error(dbconnect());
-    }
+   
 }
 
 function insertcategoriedepense($motif) {
@@ -85,6 +81,7 @@ function insertsalaire($idcueilleur, $montant) {
 
 function insertcueillette($datecueillette, $idcueilleur, $idparcelle, $poids) {
     $validation=true;
+<<<<<<< Updated upstream
     $poidrestant= poids_restant_parcelle_byid($datecueillette, $datecueillette, $idparcelle);
     if ($poids>$poidrestant) {
         $validation=false;
@@ -96,6 +93,19 @@ function insertcueillette($datecueillette, $idcueilleur, $idparcelle, $poids) {
     }
     return $validation;
    
+=======
+    if($poids>22){
+        $validation=false;
+    }
+    else
+    { 
+    $requette = "INSERT INTO cueillette VALUES (NULL, '%s', %d, %d, %.2f)";
+    $requette = sprintf($requette, $datecueillette, $idcueilleur, $idparcelle, $poids);
+    $result = mysqli_query(dbconnect(), $requette);
+  
+}
+return $validation;
+>>>>>>> Stashed changes
 }
 
 function insertdepense($idcategoriedepense, $montant,$date) {
