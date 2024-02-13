@@ -127,8 +127,6 @@ create table remuneration(
 insert into remuneration values(1,10,12,3);
 insert into remuneration values(2,15,17,23);
 
-
-
 create table paiement(
     datecueillette date not null,
     nom varchar(256) not null,
