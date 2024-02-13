@@ -84,14 +84,23 @@ function insertsalaire($idcueilleur, $montant) {
 }
 
 function insertcueillette($datecueillette, $idcueilleur, $idparcelle, $poids) {
-    $requette = "INSERT INTO cueillette VALUES (NULL, '%s', %d, %d, %.2f)";
-    $requette = sprintf($requette, $datecueillette, $idcueilleur, $idparcelle, $poids);
-    $result = mysqli_query(dbconnect(), $requette);
-    if ($result) {
-        echo "Insertion dans 'cueillette' réussie.";
-    } else {
-        echo "Erreur lors de l'insertion dans 'cueillette': " . mysqli_error(dbconnect());
+    $validation=true;
+    $poidrestant= poids_restant_parcelle_byid($datecueillette, $datecueillette, $idparcelle);
+    if ($poids>$poidrestant) {
+        $validation=false;
     }
+    else{
+        $requette = "INSERT INTO cueillette VALUES (NULL, '%s', %d, %d, %.2f)";
+        $requette = sprintf($requette, $datecueillette, $idcueilleur, $idparcelle, $poids);
+        $result = mysqli_query(dbconnect(), $requette);
+        if ($result) {
+            echo "Insertion dans 'cueillette' réussie.";
+        } else {
+            echo "Erreur lors de l'insertion dans 'cueillette': " . mysqli_error(dbconnect());
+        }
+    }
+    return $validation;
+   
 }
 
 function insertdepense($idcategoriedepense, $montant,$date) {
@@ -130,8 +139,6 @@ function getStatutPersonne($id){
     }   
     
 }
-
-
 
 
 function getAllThe() {
@@ -312,6 +319,37 @@ function poids_restant_parcelle() {
     return $data;
 }
 
+function poids_restant_parcelle_byid($min, $max, $idParcelle) {
+    $db = dbconnect();
+
+    $query = "SELECT 
+                SUM((th.rendement * p.surface * 10000 / th.occupation)) - COALESCE(SUM(c.poids), 0) AS poids_restant
+              FROM 
+                parcelle p
+              JOIN 
+                the th ON p.idthe = th.idthe
+              LEFT JOIN 
+                cueillette c ON p.idparcelle = c.idparcelle
+              WHERE 
+                c.datecueillette <= '%s'
+                AND p.idparcelle = %d
+                AND MONTH(c.datecueillette) >= (SELECT idmois FROM saison WHERE idmois <= MONTH('%s') ORDER BY idmois DESC LIMIT 1);";
+
+    $query = sprintf($query, $max, $idParcelle, $max);
+
+    $result = mysqli_query($db, $query);
+    $data = array();
+    
+    if ($result && mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row['poids_restant'];
+        }
+    }
+    
+    return $data;
+}
+
+
 function poids_restant_parcelle_date($min, $max) {
     $db = dbconnect();
 
@@ -373,6 +411,72 @@ function calculer_cout_revient_par_kg($date_debut, $date_fin) {
     mysqli_stmt_close($stmt);
     return $cout_revient_par_kg;
 }
+
+function sumDep() {
+    $query = "SELECT SUM(montant) AS total FROM depense ";
+   
+    $result = mysqli_query(dbconnect(), $query);
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $total = $row['total'];
+        mysqli_free_result($result);
+        return $total;
+    } else {
+        return 0;
+    }
+}
+
+function totalSalaireCueilleurs() {
+    $db = dbconnect();
+
+    $query = "SELECT SUM(montant) AS total_salaire
+              FROM salaire
+              WHERE idceuilleur IN (SELECT DISTINCT idceuilleur FROM cueillette)";
+
+    $result = mysqli_query($db, $query);
+
+    $totalSalaire = 0;
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $totalSalaire = $row['total_salaire'];
+    }
+
+    return $totalSalaire;
+}
+
+function sumPoidsCueillis() {
+    $db = dbconnect();
+
+    $query = "SELECT SUM(poids) AS total_poids
+              FROM cueillette";
+
+    $result = mysqli_query($db, $query);
+
+    $totalPoids = 0;
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $totalPoids = $row['total_poids'];
+    }
+
+    return $totalPoids;
+}
+
+function prixRevientParKg() {
+    $totalDepenses = sumDep();
+
+  $totalPoidsCueillis = sumPoidsCueillis();
+
+    if ($totalPoidsCueillis != 0) {
+
+        $prixRevientParKg = $totalDepenses / $totalPoidsCueillis;
+        return $prixRevientParKg;
+    } else {
+        return "Impossible de calculer le prix de revient par kg, aucun poids cueilli.";
+    }
+}
+
+
+
 
 function deleteSaison($idMois) {
     $query = "DELETE FROM saison WHERE idmois = %d";
