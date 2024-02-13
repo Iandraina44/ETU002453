@@ -6,36 +6,24 @@
             xhr = false;
         }
 
-<<<<<<< Updated upstream
         var form = document.getElementById("formss");
-=======
-        var form = document.getElementById("formCueillette");
->>>>>>> Stashed changes
 
         xhr.addEventListener("load", function (event) {
             if (xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
                 if (response === "success") {
                     window.alert("Cueillette inserer");
-<<<<<<< Updated upstream
                     window.location.href = "template.php?page=frontoffice/cueillette";
-                } else {
-                   window.alert("Cueillette non inserer(Excees de quantite)");
-                   window.location.href = "template.php?page=cueillette";
-=======
+                
                 } else {
                    window.alert("Poids superieur aux poids restants");
->>>>>>> Stashed changes
                 }
             } else {
                 window.alert("Something went wrong!");
             }
         });
 
-<<<<<<< Updated upstream
         xhr.open("GET", "frontoffice/traitcueillette.php?poids=" + document.getElementById("poids").value + "&&idcueilleur=" + document.getElementById("Cueilleur").value + "&&idparcelle=" + document.getElementById("idparcelle").value + "&&datecueillette=" + document.getElementById("datecueillette").value);
-=======
-        xhr.open("GET", "traitcueillette.php?poids=" + document.getElementById("poids").value + "&&idcueilleur=" + document.getElementById("Cueilleur").value + "&&idparcelle=" + document.getElementById("idparcelle").value + "&&datecueillette=" + document.getElementById("datecueillette").value);
         xhr.send();
     }
 
@@ -135,6 +123,5 @@ corpsDiv.appendChild(colDiv);
         });
 
         xhr.open("GET", "traitprevision.php?date=" + document.getElementById("date").value);
->>>>>>> Stashed changes
         xhr.send();
     }
