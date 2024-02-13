@@ -81,7 +81,7 @@ function insertsalaire($idcueilleur, $montant) {
 
 function insertcueillette($datecueillette, $idcueilleur, $idparcelle, $poids) {
     $validation=true;
-<<<<<<< Updated upstream
+
     $poidrestant= poids_restant_parcelle_byid($datecueillette, $datecueillette, $idparcelle);
     if ($poids>$poidrestant) {
         $validation=false;
@@ -92,20 +92,7 @@ function insertcueillette($datecueillette, $idcueilleur, $idparcelle, $poids) {
         $result = mysqli_query(dbconnect(), $requette);
     }
     return $validation;
-   
-=======
-    if($poids>22){
-        $validation=false;
-    }
-    else
-    { 
-    $requette = "INSERT INTO cueillette VALUES (NULL, '%s', %d, %d, %.2f)";
-    $requette = sprintf($requette, $datecueillette, $idcueilleur, $idparcelle, $poids);
-    $result = mysqli_query(dbconnect(), $requette);
-  
-}
-return $validation;
->>>>>>> Stashed changes
+
 }
 
 function insertdepense($idcategoriedepense, $montant,$date) {
