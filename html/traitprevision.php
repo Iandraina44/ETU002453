@@ -1,13 +1,16 @@
 <?php 
 
-// include ("../../inc/fonction.php");
+include ("../inc/fonction.php");
 
-  header( "Content-Type: application/json");
+  //header( "Content-Type: application/json");
 $date=$_GET['date'];
 
 $validation = array();
-$validation[0]=1;
-$validation[1]=111;
+// $validation[0]=poids_restant_parcelle_date($date, $date);
+$validation=assembleResultats($date);
+
+
+
 
       echo json_encode($validation);
 

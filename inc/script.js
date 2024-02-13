@@ -41,8 +41,12 @@
                 var response = JSON.parse(xhr.responseText);
                 var montant=document.getElementById("montant");
                 var poids=document.getElementById("poids total");
-                montant.innerHTML="montant :" +response[0];
-                poids.innerHTML="poids total thé restant:" +response[1];
+            
+                // poids.innerHTML="poids total thé restant:" +response[0];
+
+                for (var i = 0; i < response.length; i++) {
+                    
+                
 
 var corpsDiv = document.querySelector('.corps');
 corpsDiv.innerHTML="";
@@ -56,7 +60,7 @@ var cardBodyDiv = document.createElement("div");
 cardBodyDiv.className = "card-body";
 var h4Title = document.createElement("h4");
 h4Title.className = "card-title";
-h4Title.textContent = "Parcelle n1";
+h4Title.textContent = response[i].id;
 
 var flexDiv = document.createElement("div");
 flexDiv.className = "d-flex mt-5 align-items-top";
@@ -68,23 +72,23 @@ var iElement = document.createElement("i");
 iElement.className = "mdi mdi-account-outline icon-sm me-2";
 
 var spanElement = document.createElement("span");
-spanElement.textContent = "88ha";
+spanElement.textContent = response[i].surface;
 
 
 var flexGrowDiv = document.createElement("div");
 flexGrowDiv.className = "mb-0 flex-grow";
 
 var h5Element = document.createElement("h5");
-h5Element.textContent = "THE SAHAMBAVY";
+h5Element.textContent = response[i].nom_variete;
 
 
 var pElement1 = document.createElement("p");
 pElement1.className = "mb-0 font-weight-light";
-pElement1.textContent = "Nombre de pied: 22";
+pElement1.textContent = "nombre de pied:" +  response[i].nombre_de_pieds;
 
 var pElement2 = document.createElement("p");
 pElement2.className = "mb-0 font-weight-light";
-pElement2.textContent = "poids thé restant: 22";
+pElement2.textContent = "poids thé restant:" + response[i].poids_restant;
 
 var msAutoDiv = document.createElement("div");
 msAutoDiv.className = "ms-auto";
@@ -115,7 +119,7 @@ colDiv.appendChild(cardDiv);
 corpsDiv.appendChild(colDiv);
 
 
-               
+               }
                
             } else {
                 window.alert("Something went wrong!");
