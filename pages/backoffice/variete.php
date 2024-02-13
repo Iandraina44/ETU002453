@@ -35,6 +35,12 @@
                         <input name="rendement" type="number" class="form-control" id="exampleInputUsername1" placeholder=" rendement" name="  rendement">
                       </div>
                       
+                      <div class="form-group">
+                        <label for="exampleInputUsername1"> Prix</label>
+                        <input name="prix" type="number" class="form-control" id="exampleInputUsername1" placeholder=" rendement" >
+                      </div>
+                      
+
                       <button type="submit" class="btn btn-gradient-secondary btn-rounded btn-fw me-2">Valider</button>
                      
                     </form>

@@ -532,9 +532,10 @@ function insertdeletesaison($tab){
     }
 }
 
-function insertPrixthe($idthe, $prixthe) {
-    $query = "INSERT INTO prixthe (idthe, prixthe) VALUES (%d, %.2f)";
-    $query = sprintf($query, $idthe, $prixthe);
+function insertPrixthe( $prixthe) {
+    $query = "INSERT INTO prixthe  VALUES (null, '%s')";
+    $query = sprintf($query, $prixthe);
+    echo $query;
     $result = mysqli_query(dbconnect(), $query);
     if ($result) {
         echo "Insertion into 'prixthe' successful.";
@@ -779,7 +780,7 @@ function TotalVentes($dateDebut, $dateFin) {
     }
 }
 
-function calculateBenefice($dateDebut, $dateFin, $idCueilleur) {
+function calculateBenefice($dateDebut, $dateFin) {
     $totalVentes = TotalVentes($dateDebut, $dateFin);
     $totalDepenses = totalDepenses($dateDebut, $dateFin);
     $benefice = $totalVentes - $totalDepenses;

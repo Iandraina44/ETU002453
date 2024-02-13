@@ -21,6 +21,23 @@ if (isset($_GET['prixrevient'])) {
 }
 
 
+$depenses=0;
+if (isset($_GET['depenses'])) {
+    $depenses=$_GET['depenses'];
+}
+
+$ventes=0;
+if (isset($_GET['ventes'])) {
+    $ventes=$_GET['ventes'];
+}
+
+
+
+$benefices=0;
+if (isset($_GET['benefices'])) {
+    $benefices=$_GET['benefices'];
+}
+
 
 ?>
 
@@ -37,7 +54,7 @@ if (isset($_GET['prixrevient'])) {
                 <div class="card">
                   <div class="card-body">
                     <h3 class="card-title">Resultat</h3>
-                    <p class="card-description">formulaire de recherche</p>
+                    <p class="card-description">formulaire de recherche saississez deux dates pour avoir des resultats</p>
 
                     <form class="forms-sample" action="frontoffice/traitresultat.php" method="get">
                       
@@ -77,14 +94,14 @@ if (isset($_GET['prixrevient'])) {
 
                     <p class="font-weight-normal mb-3">Montant des ventes  <i class="mdi mdi-chart-line mdi-24px float-right"></i>
                    
-                     <br><strong   class="mb-5">$ 15,0000</strong>  </p>
+                     <br><strong   class="mb-5"><?php echo $ventes ?></strong>  </p>
 
                     <p class="font-weight-normal mb-3">Montant des depenses  <i class="mdi mdi-chart-line mdi-24px float-right"></i>
                    
-                     <br><strong   class="mb-5">$ 15,0000</strong>  </p>
+                     <br><strong   class="mb-5"><?php echo $depenses ?></strong>  </p>
                     <p class="font-weight-normal mb-3">Benefice  <i class="mdi mdi-coin mdi-24px float-right"></i>
                    
-                     <br> <strong   class="mb-5">$ 15,0000</strong>  </p>
+                     <br> <strong   class="mb-5"><?php echo $benefices ?></strong>  </p>
                    
                    <p class="font-weight-normal mb-3">Poids restant sur les parcelles <i class="mdi mdi-weight mdi-24px float-right"></i>
                    
