@@ -71,6 +71,19 @@ create table resultat(
     coutrevient double not null
 );
 
+create table remuneration(
+    idceuilleur int ,
+    foreign key (idceuilleur) references cueilleur (idceuilleur);
+    poidminimum double not null,
+    bonus double not null,
+    malus double not null
+
+);
+
+create table saison(
+    idmois int check (statut between 1 and 12)
+);
+
 insert into user values(null,'admin','admin',sha1('admin'),'admin@gmail.com',0);
 insert into user values(null,'normal','normal',sha1('normal'),'normal@gmail.com',1);
 

@@ -130,6 +130,19 @@ function getStatutPersonne($id){
     }   
     
 }
+
+function insertRemuneration($idCueilleur, $poidsMinimum, $bonus, $malus) {
+    $query = "INSERT INTO remuneration (idcueilleur, poids_minimum, bonus, malus) VALUES (%d, %.2f, %.2f, %.2f)";
+    $query = sprintf($query, $idCueilleur, $poidsMinimum, $bonus, $malus);
+    $result = mysqli_query(dbconnect(), $query);
+    if ($result) {
+        echo "Insertion into 'remuneration' successful.";
+    } else {
+        echo "Error inserting into 'remuneration': " . mysqli_error(dbconnect());
+    }
+}
+
+
 function getAllThe() {
     $db = dbconnect(); 
     $query = "SELECT * FROM the";
@@ -185,7 +198,10 @@ function getAllCueillette() {
     }
     return $data;
 }
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
 function getAllCategorieDepense() {
     $db = dbconnect(); 
@@ -365,6 +381,67 @@ function calculer_cout_revient_par_kg($date_debut, $date_fin) {
     mysqli_stmt_close($stmt);
     return $cout_revient_par_kg;
 }
+
+function deleteSaison($idMois) {
+    $query = "DELETE FROM saison WHERE idmois = %d";
+    $query = sprintf($query, $idMois);
+    $result = mysqli_query(dbconnect(), $query);
+    if ($result) {
+        echo "Deletion from 'saison' successful.";
+    } else {
+        echo "Error deleting from 'saison': " . mysqli_error(dbconnect());
+    }
+}
+
+function deleteSaisonAll() {
+    $query = "DELETE FROM saison";
+    $result = mysqli_query(dbconnect(), $query);
+    if ($result) {
+        echo "All records deleted from 'saison'.";
+    } else {
+        echo "Error deleting from 'saison': " . mysqli_error(dbconnect());
+    }
+}
+
+function insertSaison($idMois) {
+    $query = "INSERT INTO saison (idmois) VALUES (%d)";
+    $query = sprintf($query, $idMois);
+    $result = mysqli_query(dbconnect(), $query);
+    if ($result) {
+        echo "Insertion into 'saison' successful.";
+    } else {
+        echo "Error inserting into 'saison': " . mysqli_error(dbconnect());
+    }
+}
+
+function selectAllSaison() {
+    $db = dbconnect(); 
+    $query = "SELECT * FROM saison";
+    $result = mysqli_query($db, $query);
+    $data = array(); 
+    if ($result && mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
+        }
+        mysqli_free_result($result);
+        return $data;
+    } else {
+        echo "Error selecting from 'saison': " . mysqli_error($db);
+        return [];
+    }
+}
+
+
+
+function insertdeletesaison($tab){
+    deleteSaisonAll();
+
+    foreach($tab as $idMois) {
+        insertSaison($idMois);
+    }
+}
+
+
 
 
 
