@@ -11,8 +11,8 @@ create table user(
     statut int check (statut between 0 and 1)
 );
 
-insert into user values(null,'admin','ad','admin@gmail.com','0');
-insert into user values(null,'normal','no','normale@gmail.com','1');
+insert into user values(null,'admin','ad','admin','admin@gmail.com','0');
+insert into user values(null,'normal','no','normal','normale@gmail.com','1');
 
 create table the(
     idthe int auto_increment primary key,
@@ -144,7 +144,7 @@ create table saison(
 );
 
 
-<<<<<<< Updated upstream
+
 insert into saison values(1);
 insert into saison values(2);
 insert into saison values(3);
@@ -184,4 +184,3 @@ WHERE
 GROUP BY
     p.idparcelle;
 
->>>>>>> Stashed changes
