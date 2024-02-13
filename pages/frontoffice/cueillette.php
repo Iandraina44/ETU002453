@@ -1,14 +1,7 @@
-<<<<<<< Updated upstream
 
 <!DOCTYPE html>
  <script src="../inc/script.js"></script>
-=======
-<?php include ("../../inc/fonction.php");
- ?>
 
-<!DOCTYPE html>
- <script src="../../inc/script.js"></script>
->>>>>>> Stashed changes
   <?php 
     $listcueilleur=getAllCueilleur();
     $listparcelle=getAllParcelle();

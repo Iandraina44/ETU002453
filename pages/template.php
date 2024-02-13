@@ -151,6 +151,13 @@ $statut=$_SESSION['statut'];
               </a>
             </li>
 
+            </li>
+              <li class="nav-item">
+              <a class="nav-link" href="template.php?page=frontoffice/prevision">
+                <span class="menu-title">Prevision</span>
+                <i class="mdi mdi-leaf menu-icon"></i>
+              </a>
+            </li>
 
 
             

@@ -49,7 +49,6 @@
                 
 
 var corpsDiv = document.querySelector('.corps');
-corpsDiv.innerHTML="";
 
 var colDiv = document.createElement("div");
 colDiv.className = "col-4 grid-margin stretch-card";
@@ -126,6 +125,6 @@ corpsDiv.appendChild(colDiv);
             }
         });
 
-        xhr.open("GET", "traitprevision.php?date=" + document.getElementById("date").value);
+        xhr.open("GET", "frontoffice/traitprevision.php?date=" + document.getElementById("date").value);
         xhr.send();
     }
