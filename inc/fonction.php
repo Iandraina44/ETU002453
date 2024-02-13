@@ -589,6 +589,22 @@ function insertPaiement($datecueillette, $nom, $poidcueilli, $bonus, $malus, $pa
     return $data;
 }
 
+function selectDateCueillette($dateDebut, $dateFin, $idCueilleteur) {
+    $query = "SELECT datecueillette FROM cueillette WHERE datecueillette BETWEEN '%s' AND '%s' AND idceuilleur = %d";
+    $query = sprintf($query, mysqli_real_escape_string(dbconnect(), $dateDebut), mysqli_real_escape_string(dbconnect(), $dateFin), $idCueilleteur);
+    $result = mysqli_query(dbconnect(), $query);
+    $data = array();
+    if ($result && mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row['datecueillette'];
+        }
+        mysqli_free_result($result);
+    }
+    return $data;
+}
+
+
+
 function selectRemuneration($id) {
     $query = "SELECT * FROM remuneration WHERE idceuilleur = $id";
     $result = mysqli_query(dbconnect(), $query);
@@ -614,6 +630,14 @@ function selectallRemuneration() {
     }
     return $data;
 }
+
+function deleteAllRemuneration() {
+    $query = "DELETE FROM remuneration";
+    $db = dbconnect();
+    $result = mysqli_query($db, $query);
+}
+
+
 
 
 function insertRemuneration($idCueilleur, $poidsMinimum, $bonus, $malus) {
@@ -641,7 +665,7 @@ function selectNomCueilleur($idCueilleur) {
 }
 
 
-function calculatePayment($dateDebut, $dateFin, $idCueilleur) {
+function calculatePayment($dateDebut, $dateFin, $idCueilleur,$datecueillette) {
     $remuneration = selectRemuneration($idCueilleur);
     if (empty($remuneration)) {
         echo "Aucune donnée de rémunération trouvée pour le cueilleur avec l'ID : $idCueilleur";
@@ -663,9 +687,9 @@ function calculatePayment($dateDebut, $dateFin, $idCueilleur) {
         $paiementTotal += $paiement;
     }
     $paiementTotal = max(0, $paiementTotal);
-    $datePaiement = date("Y-m-d");
     $nom = selectNomCueilleur($idCueilleur);
-    insertPaiement($datePaiement, $nom, $poidsCueillette, $bonus, $malus, $paiementTotal);
+    deleteAllRemuneration();
+    insertPaiement($datecueillette, $nom, $poidsCueillette, $bonus, $malus, $paiementTotal);
     return $paiementTotal;
 }
 
